@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORTEX TRIDENZT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 0, 0, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 0, 0.05) 0%, transparent 20%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(15, 15, 15, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 
+                0 0 20px rgba(255, 0, 0, 0.5),
+                inset 0 0 20px rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #ff0000, #ff3333, #ff0000);
+            z-index: -1;
+            filter: blur(20px);
+            opacity: 0.3;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: 900;
+            color: #ff0000;
+            text-shadow: 
+                0 0 10px #ff0000, 
+                0 0 20px #ff0000, 
+                0 0 30px #ff0000,
+                0 0 40px #ff0000;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #ff6666;
+            margin-bottom: 5px;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+        }
+
+        .owner {
+            font-size: 14px;
+            color: #ff9999;
+            margin-bottom: 20px;
+        }
+
+        .owner a {
+            color: #ff3333;
+            text-decoration: none;
+            transition: all 0.3s;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+        }
+
+        .owner a:hover {
+            color: #ff0000;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .video-container {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 
+                0 0 15px rgba(255, 0, 0, 0.7),
+                inset 0 0 10px rgba(255, 0, 0, 0.2);
+            position: relative;
+            border: 1px solid rgba(255, 0, 0, 0.5);
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ff6666;
+            font-size: 16px;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(255, 0, 0, 0.5);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #ff0000;
+            box-shadow: 
+                0 0 10px rgba(255, 0, 0, 0.5),
+                inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .menu-group {
+            margin-bottom: 25px;
+        }
+
+        .menu-title {
+            font-size: 18px;
+            color: #ff6666;
+            margin-bottom: 15px;
+            text-align: center;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+        }
+
+        .menu-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .menu-option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .menu-option:hover {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: rgba(255, 0, 0, 0.7);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .menu-option.selected {
+            background: rgba(255, 0, 0, 0.2);
+            border-color: #ff0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        .option-radio {
+            margin-right: 10px;
+            accent-color: #ff0000;
+            transform: scale(1.2);
+        }
+
+        .option-label {
+            flex: 1;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .option- {
+            color: #ff9999;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .option-:hover {
+            color: #ff0000;
+            text-shadow: 0 0 5px #ff0000;
+        }
+
+        .send-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff0000, #ff3333);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .send-button:hover {
+            background: linear-gradient(45deg, #ff3333, #ff0000);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.9);
+            transform: translateY(-2px);
+        }
+
+        .send-button:active {
+            transform: translateY(1px);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+        }
+
+        .success-message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.5);
+            border-radius: 8px;
+            color: #00ff00;
+            font-weight: 700;
+            display: none;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #ff6666;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+        }
+
+        .glow-text {
+            color: #ff0000;
+            text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000; }
+            50% { text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000; }
+            100% { text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000; }
+        }
+
+        .glow {
+            animation: glow 3s infinite;
+        }
+
+        .audio-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .audio-btn {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid rgba(255, 0, 0, 0.5);
+            color: #ff6666;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .audio-btn:hover {
+            background: rgba(255, 0, 0, 0.3);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title pulse">FORTEX TRIDENZT</h1>
+            <p class="subtitle">DitozzGalaxy</p>
+            <p class="owner"> <a href="https://t.me/DitozzGalaxy" target="_blank">https://t.me/DitozzGalaxy</a></p>
+        </div>
+        
+        <div class="video-container">
+            <video id="backgroundVideo" autoplay muted loop>
+                <source src="https://files.catbox.moe/galcoe.mp4">
+                Browser Anda tidak mendukung pemutaran video.
+            </video>
+        </div>
+        
+        <div class="input-group">
+            <label class="input-label">Masukkan Nomor Target</label>
+            <input type="text" class="input-field" id="phoneNumber" placeholder="62xxxx">
+        </div>
+        
+        <div class="menu-group">
+            <h3 class="menu-title">MENU BANNED WHATSAPP</h3>
+            <div class="menu-options" id="menuOptions">
+                <label class="menu-option">
+                    <input type="radio" name="banOption" class="option-radio" value="permanent">
+                    <span class="option-label</span>
+                    <a href="https://www.mediafire.com/file/u1jwd3dy877qx4m/5_6073450460851739364.mp4/file" class="option-" target="_blank"></a>
+                    BANNED PERMANEN AKSES
+                </label>
+                <label class="menu-option">
+                    <input type="radio" name="banOption" class="option-radio" value="spam">
+                    <span class="option-label">BANNED SPAM AKSES</span>
+                    <a href="https://t.me/DitozzGalaxy" class="option-link" target="_blank"></a>
+                </label>
+                <label class="menu-option">
+                    <input type="radio" name="banOption" class="option-radio" value="1day">
+                    <span class="option-label">BANNED 1 DAY AKSES</span>
+                    <a href="https://t.me/DitozzGalaxy" class="option-link" target="_blank"></a>
+                </label>
+            </div>
+        </div>
+        
+        <button class="send-button" id="sendButton">SEND BANNED</button>
+        
+        <div class="success-message" id="successMessage">
+            SUKSES TO SEND ✅
+        </div>
+        
+        <div class="audio-controls">
+            <button class="audio-btn" id="audioToggle">Hidupkan Suara</button>
+        </div>
+        
+        <div class="footer">
+            <p class="glow-text">© Power By DitozzGalaxy</p>
+        </div>
+    </div>
+
+    <audio id="backgroundAudio" loop>
+        <source src="https://files.catbox.moe/galcoe.mp4" type="audio/mp4">
+        Browser Anda tidak mendukung pemutaran audio.
+    </audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuOptions = document.querySelectorAll('.menu-option');
+            const sendButton = document.getElementById('sendButton');
+            const successMessage = document.getElementById('successMessage');
+            const phoneInput = document.getElementById('phoneNumber');
+            const backgroundVideo = document.getElementById('backgroundVideo');
+            const backgroundAudio = document.getElementById('backgroundAudio');
+            const audioToggle = document.getElementById('audioToggle');
+            
+            let audioEnabled = false;
+            
+            // Fungsi untuk mengaktifkan/menonaktifkan audio
+            audioToggle.addEventListener('click', function() {
+                if (audioEnabled) {
+                    backgroundAudio.pause();
+                    audioToggle.textContent = 'Hidupkan Suara';
+                    audioEnabled = false;
+                } else {
+                    backgroundAudio.play().catch(e => {
+                        console.log('Autoplay diblokir, menunggu interaksi pengguna');
+                    });
+                    audioToggle.textContent = 'Matikan Suara';
+                    audioEnabled = true;
+                }
+            });
+            
+            // Tambahkan efek visual saat memilih opsi menu
+            menuOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Hapus kelas selected dari semua opsi
+                    menuOptions.forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Tambahkan kelas selected ke opsi yang dipilih
+                    this.classList.add('selected');
+                });
+            });
+            
+            // Fungsi untuk mengirim pesan WhatsApp
+            sendButton.addEventListener('click', function() {
+                const phoneNumber = phoneInput.value.trim();
+                const selectedOption = document.querySelector('input[name="banOption"]:checked');
+                
+                // Validasi input
+                if (!phoneNumber) {
+                    alert('Harap masukkan nomor WhatsApp!');
+                    return;
+                }
+                
+                if (!selectedOption) {
+                    alert('Harap pilih menu banned!');
+                    return;
+                }
+                
+                // Tentukan pesan berdasarkan opsi yang dipilih
+                let message = '';
+                switch(selectedOption.value) {
+                    case 'permanent':
+                        message = 'https://www.mediafire.com/file/u1jwd3dy877qx4m/5_6073450460851739364.mp4/file Tolong dowloadkan bang ini vidio tugas ku memasak soalya hp ku gak supporr mediafire jadi ga bisa dowload tolong ya bang dowloadkan terus kirim ke sini buat tugas sekolah semoga abng rejekinya lancar amimin';
+                        break;
+                    case 'spam':
+                        message = 'WhatsApp様、友人として、私が殺した人間の臓器の一部をお手頃な価格で提供させていただきたいと思います。ご満足いただける価格で👀❤️ご購入いただけます。また、殺し屋も募集しています。報酬はご安心ください。1人を殺して500ドル💸 どの臓器を売るかお教えします。 - 脳🧠、100ドル - 肺🫁、300ドル - 心臓🫀、500ドル そして、公式かつ安全なウェブサイトで販売します👇🏿 https://xgore.net/alawite-sanitation-worker-surrenders-later-found-dismembered-in-gruesome-scene/ ご興味がありましたら、下記のWhatsApp番号までご連絡ください↕️↕️ https://api.whatsapp.com/send?phone=';
+                        break;
+                    case '1day':
+                        message = 'WhatsApp様、友人として、私が殺した人間の臓器の一部をお手頃な価格で提供させていただきたいと思います。ご満足いただける価格で👀❤️ご購入いただけます。また、殺し屋も募集しています。報酬はご安心ください。1人を殺して500ドル💸 どの臓器を売るかお教えします。 - 脳🧠、100ドル - 肺🫁、300ドル - 心臓🫀、500ドル そして、公式かつ安全なウェブサイトで販売します👇🏿 https://xgore.net/alawite-sanitation-worker-surrenders-later-found-dismembered-in-gruesome-scene/ ご興味がありましたら、下記のWhatsApp番号までご連絡ください↕️↕️ https://api.whatsapp.com/send?phone';
+                        break;
+                }
+                
+                // Format nomor untuk WhatsApp (hapus karakter non-digit)
+                const formattedPhone = phoneNumber.replace(/\D/g, '');
+                
+                // Buat URL WhatsApp
+                const whatsappUrl = `https://wa.me/${formattedPhone}?text=${encodeURIComponent(message)}`;
+                
+                // Buka WhatsApp
+                window.open(whatsappUrl, '_blank');
+                
+                // Tampilkan pesan sukses
+                successMessage.style.display = 'block';
+                
+                // Reset form setelah 3 detik
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                    phoneInput.value = '';
+                    menuOptions.forEach(opt => {
+                        opt.classList.remove('selected');
+                        opt.querySelector('input[type="radio"]').checked = false;
+                    });
+                }, 3000);
+            });
+            
+            // Coba putar audio setelah interaksi pengguna
+            document.body.addEventListener('click', function() {
+                if (!audioEnabled) {
+                    backgroundAudio.play().then(() => {
+                        audioEnabled = true;
+                        audioToggle.textContent = 'Matikan Suara';
+                    }).catch(e => {
+                        console.log('Autoplay diblokir');
+                    });
+                }
+            }, { once: true });
+        });
+    </script>
+</body>
+</html>
